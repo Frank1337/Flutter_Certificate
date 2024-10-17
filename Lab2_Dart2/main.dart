@@ -26,7 +26,7 @@ main(){
     if(Quantity == null){
       print("invalid number of pizzas. Please rerun the program");
     } else {
-      total_price = Quantity * price!;
+      total_price = Quantity * price;
       print("The total costs are $total_price");
     }
   }
