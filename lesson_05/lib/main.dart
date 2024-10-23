@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Caveat'),
               ),
             ],
           ),
