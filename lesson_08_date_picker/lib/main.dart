@@ -14,8 +14,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DateTime date1 = DateTime.now();
   TimeOfDay time1 = TimeOfDay.now();
-
   TimeOfDay? picked;
+  var rating = 0.0;
+  bool _switchValue = false;
+
+  void _onChanged(bool value) {
+    setState(() {
+      _switchValue = value;
+    });
+  }
 
   Future<Null> selectTime(BuildContext context) async {
     picked = await showTimePicker(context: context, initialTime: time1);
@@ -82,7 +89,45 @@ class _MyAppState extends State<MyApp> {
                         },
                         icon: const Icon(Icons.access_time))
                   ],
-                )
+                ),
+                Container(
+                  width: 300,
+                  child: Slider(
+                    value: rating,
+                    onChanged: (newRating) {
+                      setState(() => rating = newRating);
+                    },
+                    min: 0,
+                    max: 100,
+                    divisions: 4,
+                    label: '$rating',
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Rating Value: '
+                      '$rating',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Switch(
+                      value: _switchValue,
+                      onChanged: _onChanged,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Switch Value: '
+                      '$_switchValue',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
               ],
             )),
       ),
