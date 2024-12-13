@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: MyApp()));
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -13,6 +13,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   DateTime date1 = DateTime.now();
+  TimeOfDay time1 = TimeOfDay.now();
+
+  TimeOfDay? picked;
+
+  Future<Null> selectTime(BuildContext context) async {
+    picked = await showTimePicker(context: context, initialTime: time1);
+    if (picked != null && picked != time1) {
+      setState(() {
+        time1 = picked!;
+        print(time1.toString());
+      });
+    }
+  }
 
   Future<Null> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -34,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Date Picker"),
+          title: const Text("Date Picker"),
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
@@ -48,13 +61,26 @@ class _MyAppState extends State<MyApp> {
                     Text(
                       ('${date1.year} - ${date1.month} - ${date1.day}')
                           .toString(),
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     IconButton(
                         onPressed: () {
                           selectDate(context);
                         },
-                        icon: Icon(Icons.date_range))
+                        icon: const Icon(Icons.date_range))
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      ('${time1.hour} : ${time1.minute}').toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          selectTime(context);
+                        },
+                        icon: const Icon(Icons.access_time))
                   ],
                 )
               ],
