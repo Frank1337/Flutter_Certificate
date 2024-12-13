@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -46,6 +47,94 @@ class _MyAppState extends State<MyApp> {
         print(date1.toString());
       });
     }
+  }
+
+  void displayAlertDialog(BuildContext context) {
+    var alertDialog = AlertDialog(
+      title: const Text(
+        'Android ATC Pizza Store Offer',
+        style: TextStyle(color: Colors.blue),
+      ),
+      content: const Text(
+        'Get the 2nd Pizza for \$5 Now !',
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            print("Thanks, I got it.");
+          },
+          child: const Text('Yes'),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blue,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('No'),
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+      },
+    );
+  }
+
+  void displayCupertinoAlertDialog(BuildContext context) {
+    var alertDialog = CupertinoAlertDialog(
+      title: const Text(
+        'Android ATC Pizza Store Offer',
+        style: TextStyle(color: Colors.blue),
+      ),
+      content: const Text(
+        'Get the 2nd Pizza for \$5 Now !',
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.blue,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            shadowColor: Colors.transparent,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            print("Thanks, I got it.");
+          },
+          child: const Text('Yes'),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.blue,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            shadowColor: Colors.transparent,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('No'),
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+      },
+    );
   }
 
   // This widget is the root of your application.
@@ -126,6 +215,40 @@ class _MyAppState extends State<MyApp> {
                       '$_switchValue',
                       style: const TextStyle(fontSize: 20),
                     ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () {
+                        displayAlertDialog(context);
+                      },
+                      child: const Text(
+                        'Alert Dialog',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () {
+                        displayCupertinoAlertDialog(context);
+                      },
+                      child: const Text(
+                        'Cupertino Alert Dialog',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
                   ],
                 ),
               ],
