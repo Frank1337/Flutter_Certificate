@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseService extends StatefulWidget {
@@ -8,6 +9,8 @@ class FirebaseService extends StatefulWidget {
 }
 
 class _FirebaseServiceState extends State<FirebaseService> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,14 +18,21 @@ class _FirebaseServiceState extends State<FirebaseService> {
         title: const Text('Firebase Service'),
         foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Container(
-          child: const Text(
-            'Welcome to Firebase Services',
-            style: TextStyle(
-              fontSize: 20,
-            ),
+      body: const Center(
+        child: Text(
+          'Welcome to Firebase Services',
+          style: TextStyle(
+            fontSize: 20,
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -10,6 +11,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +52,6 @@ class _LoginState extends State<Login> {
                     width: 200,
                     child: TextField(
                       controller: _emailController,
-                      onChanged: (value) {
-                        print("Email: $value");
-                      },
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -101,9 +100,19 @@ class _LoginState extends State<Login> {
                 child: SizedBox(
                   width: 100,
                   child: ElevatedButton(
-                    onPressed: () {
-                      print("Email: ${_emailController.text}");
-                      print("Password: ${_passwordController.text}");
+                    onPressed: () async {
+                      try {
+                        final user = await _auth.signInWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text);
+
+                        if (user.user != null) {
+                          Navigator.pushNamed(context, "FirebaseService");
+                          _passwordController.clear();
+                        }
+                      } catch (e) {
+                        print("Error: $e");
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

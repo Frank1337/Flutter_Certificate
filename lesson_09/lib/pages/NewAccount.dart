@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NewAccount extends StatefulWidget {
@@ -10,6 +11,7 @@ class NewAccount extends StatefulWidget {
 class _NewAccountState extends State<NewAccount> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth_auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +52,6 @@ class _NewAccountState extends State<NewAccount> {
                     width: 200,
                     child: TextField(
                       controller: _emailController,
-                      onChanged: (value) {
-                        print("Email: $value");
-                      },
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -101,9 +100,19 @@ class _NewAccountState extends State<NewAccount> {
                 child: SizedBox(
                   width: 100,
                   child: ElevatedButton(
-                    onPressed: () {
-                      print("Email: ${_emailController.text}");
-                      print("Password: ${_passwordController.text}");
+                    onPressed: () async {
+                      try {
+                        final newUser = await FirebaseAuth_auth
+                            .createUserWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+                        if (newUser.user != null) {
+                          Navigator.pushNamed(context, 'Home');
+                        }
+                        print("User");
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
