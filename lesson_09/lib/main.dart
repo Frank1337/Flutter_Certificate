@@ -5,6 +5,8 @@ import 'package:lesson_09/pages/Home.dart';
 import 'package:lesson_09/pages/Login.dart';
 import 'package:lesson_09/pages/NewAccount.dart';
 
+import 'Database/CloudDatabase.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,6 +28,7 @@ class _MyAppState extends State<MyApp> {
       "Login": (context) => const Login(),
       "NewAccount": (context) => const NewAccount(),
       "FirebaseService": (context) => const FirebaseService(),
+      "CloudDatabase": (context) => const CloudDatabase(),
     });
   }
 }

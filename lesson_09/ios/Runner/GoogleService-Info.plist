@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:1043177287193:ios:7e3fe3865d2f42f3688488</string>
+	<key>DATABASE_URL</key>
+	<string>https://fir-authentication-6a462-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

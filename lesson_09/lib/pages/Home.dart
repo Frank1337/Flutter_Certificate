@@ -41,6 +41,17 @@ class _HomeState extends State<Home> {
               ),
               child: const Text('New Account'),
             ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "CloudDatabase");
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blue,
+              ),
+              child: const Text('Firebase Database'),
+            ),
           ],
         ),
       ),
