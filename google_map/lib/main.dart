@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'MapMarkers.dart';
@@ -32,6 +33,22 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  void getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    final CameraPosition MyLocation = CameraPosition(
+      target: LatLng(position.latitude, position.longitude),
+      bearing: 45.0,
+      tilt: 50,
+      zoom: 11,
+    );
+
+    setState(() {
+      mapController.animateCamera(CameraUpdate.newCameraPosition(MyLocation));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,10 +62,20 @@ class _MyAppState extends State<MyApp> {
           onMapCreated: _myMapCreated,
           initialCameraPosition: CameraPosition(target: _location, zoom: 13.0),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: _goToNiagaraFalls,
-          label: Text('Go to Niagara Falls'),
-          icon: Icon(Icons.directions_boat),
+        floatingActionButton: Column(
+          children: [
+            FloatingActionButton.extended(
+              onPressed: _goToNiagaraFalls,
+              label: Text('Go to Niagara Falls'),
+              icon: Icon(Icons.directions_boat),
+            ),
+            SizedBox(height: 10),
+            FloatingActionButton.extended(
+              onPressed: getCurrentLocation,
+              label: Text('Current Location'),
+              icon: Icon(Icons.location_on),
+            ),
+          ],
         ),
       ),
     );
